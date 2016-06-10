@@ -5,10 +5,16 @@ class SkeletonController < ApplicationController
   end
 
   def create
-    skeleton = Skeleton.new(params)
+    skeleton = Skeleton.new(skeleton_params)
   end
 
   def show
 
+  end
+
+  private
+
+  def skeleton_params
+    params.require(:skeleton).permit(:data)
   end
 end
