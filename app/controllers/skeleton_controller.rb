@@ -4,6 +4,10 @@ class SkeletonController < ApplicationController
     @skeleton = Skeleton.new()
   end
 
+  def create
+
+  end
+
   def show
 
   end
