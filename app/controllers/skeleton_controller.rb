@@ -1,7 +1,7 @@
 class SkeletonController < ApplicationController
 
   def new
-    Skeleton.new()
+    @skeleton = Skeleton.new()
   end
 
   def show
