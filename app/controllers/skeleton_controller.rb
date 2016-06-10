@@ -1,5 +1,9 @@
 class SkeletonController < ApplicationController
 
+  def index
+    @skeletons = Skeleton.all
+  end
+
   def new
     @skeleton = Skeleton.new()
   end
@@ -8,14 +12,14 @@ class SkeletonController < ApplicationController
     skeleton = Skeleton.new(skeleton_params)
 
     if skeleton.save
-      redirect_to(skeleton_path(skeleton))
+      redirect_to skeleton_index_path
     else
       render :new
     end
   end
 
   def show
-
+    @skeleton = Skeleton.find(params[:id])
   end
 
   private

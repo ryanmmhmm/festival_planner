@@ -7,7 +7,7 @@ RSpec.describe "Walking Skeleton" do
     fill_in "skeleton_data", with: "This data is stored in the database"
     click_button "Save"
 
-    expect(page).to have_current_path(skeleton_path)
+    expect(page).to have_current_path(skeleton_index_path)
     expect(page).to have_text("This data is stored in the database")
   end
 end
