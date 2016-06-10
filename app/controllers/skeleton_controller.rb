@@ -5,7 +5,7 @@ class SkeletonController < ApplicationController
   end
 
   def create
-
+    skeleton = Skeleton.new(params)
   end
 
   def show
