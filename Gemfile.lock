@@ -52,6 +52,7 @@ GEM
       xpath (~> 2.0)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
+    coderay (1.1.1)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
     devise (4.1.1)
@@ -96,6 +97,10 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.4)
     pkg-config (1.1.7)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     puma (3.4.0)
     rack (2.0.0.rc1)
       json
@@ -164,6 +169,7 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    slop (3.6.0)
     spring (1.7.1)
     spring-watcher-listen (2.0.0)
       listen (>= 2.7, < 4.0)
@@ -206,6 +212,7 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   pg (~> 0.18)
+  pry
   puma (~> 3.0)
   rails (>= 5.0.0.rc1, < 5.1)
   rspec-rails (~> 3.0)
