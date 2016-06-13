@@ -44,6 +44,10 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.generators do |g|
+    g.test_framework :rspec
+  end
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
