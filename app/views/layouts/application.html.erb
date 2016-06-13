@@ -9,8 +9,17 @@
   </head>
 
   <body>
+  <nav class="main-menu">
+    <% if user_signed_in? %>
+      <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= button_to "Sign in", new_user_session_path, method: :get %>
+    <% end %>
+  </nav>
+  <div class="flash-messages">
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+  </div>
 
     <%= yield %>
   </body>
