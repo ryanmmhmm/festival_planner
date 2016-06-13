@@ -19,7 +19,7 @@ RSpec.describe "DeviseUsers" do
       fill_in :user_password,               with: "password"
       fill_in :user_password_confirmation,  with: "password"
 
-      click_button "Sign up"
+      click_button "Create Account"
 
       expect(page).to have_current_path("/")
       expect(page.body).to have_text("Welcome! You have signed up successfully.")
