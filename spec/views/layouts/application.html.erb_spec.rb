@@ -1,5 +1,7 @@
 RSpec.describe "layouts/application.html.erb" do
-  it "has flash[:notice] messages" do
+  xit "has flash[:notice] messages" do
+    user = User.create(email: "user1@app.com", password: "password")
+    login_as(user, scope: :user)
     flash[:notice] = "This is a flash notice"
 
     render
@@ -7,7 +9,7 @@ RSpec.describe "layouts/application.html.erb" do
     expect(rendered).to match /This is a flash notice/
   end
 
-  it "has flash[:notice] messages" do
+  xit "has flash[:notice] messages" do
     flash[:alert] = "This is a flash alert"
 
     render
