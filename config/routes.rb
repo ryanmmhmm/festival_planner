@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :skeleton, only: [:index, :new, :create, :show]
 
   resources :users, only: [:show]
+  resources :festivals, only: [:new, :create, :show]
 end
