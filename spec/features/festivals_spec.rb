@@ -12,17 +12,17 @@ feature "Festivals", :type => :feature do
       visit new_festival_path
 
       fill_in :festival_title,                    with: "Bestival"
-      select start_time.year,                     from: "festival_start_time_1i"
+      select start_time.strftime('%Y'),           from: "festival_start_time_1i"
       select Date::MONTHNAMES[start_time.month],  from: "festival_start_time_2i"
-      select start_time.day,                      from: "festival_start_time_3i"
-      select start_time.hour,                     from: "festival_start_time_4i"
-      select start_time.min,                      from: "festival_start_time_5i"
+      select start_time.strftime('%d'),           from: "festival_start_time_3i"
+      select start_time.strftime('%H'),           from: "festival_start_time_4i"
+      select start_time.strftime('%M'),           from: "festival_start_time_5i"
 
-      select end_time.year,                       from: "festival_end_time_1i"
+      select end_time.strftime('%Y'),             from: "festival_end_time_1i"
       select Date::MONTHNAMES[end_time.month],    from: "festival_end_time_2i"
-      select end_time.day,                        from: "festival_end_time_3i"
-      select end_time.hour,                       from: "festival_end_time_4i"
-      select end_time.min,                        from: "festival_end_time_5i"
+      select end_time.strftime('%d'),             from: "festival_end_time_3i"
+      select end_time.strftime('%H'),             from: "festival_end_time_4i"
+      select end_time.strftime('%M'),             from: "festival_end_time_5i"
       fill_in :festival_location,                 with: "Toronto, Ontario"
       fill_in :festival_website_url,              with: "http://bestival.com"
 
