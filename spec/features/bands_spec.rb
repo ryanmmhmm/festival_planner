@@ -68,6 +68,22 @@ feature "Bands", :type => :feature do
     end
   end
 
+  describe "#destroy" do
+    it "allows the user to remove the band" do
+      manager = create_user(role: "manager")
+      band = create_band
+
+      login_as(manager, scope: :manager)
+
+      visit band_path(band)
+
+      click_button "Delete Band"
+
+      expect(page).to have_current_path(band_index)
+      expect(page).to have_text("The band has been removed successfully")
+    end
+  end
+
   def create_user(email: "default_email@app.com" , password: "default_password", role:)
     User.create!(
         email: email,
