@@ -1,4 +1,8 @@
 class FestivalsController < ApplicationController
+  def index
+    @festivals = Festival.all
+  end
+
   def new
     @festival = Festival.new
   end
@@ -31,6 +35,18 @@ class FestivalsController < ApplicationController
     else
       flash[:alert] = "There was a problem updating your festival"
       render :edit
+    end
+  end
+
+  def destroy
+    festival = Festival.find(params[:id])
+
+    if festival.destroy
+      flash[:notice] = "Your festival has been permanently removed"
+      redirect_to festivals_path
+    else
+      flash[:alert] = "Something went wrong when deleting your festival."
+      render :show
     end
   end
 
