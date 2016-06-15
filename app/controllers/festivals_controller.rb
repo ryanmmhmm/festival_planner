@@ -18,6 +18,22 @@ class FestivalsController < ApplicationController
     @festival = Festival.find(params[:id])
   end
 
+  def edit
+    @festival = Festival.find(params[:id])
+  end
+
+  def update
+    festival = Festival.find(params[:id])
+
+    if festival.update(festival_params)
+      flash[:notice] = "Your festival has been updated"
+      redirect_to festival_path(festival)
+    else
+      flash[:alert] = "There was a problem updating your festival"
+      render :edit
+    end
+  end
+
   private
 
   def festival_params
