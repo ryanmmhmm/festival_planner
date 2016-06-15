@@ -20,11 +20,19 @@ class BandsController < ApplicationController
   end
 
   def edit
-
+    @band = Band.find(params[:id])
   end
 
   def update
+    band = Band.find(params[:id])
 
+    if band.update(band_params)
+      flash[:notice] = "Your changes have been saved"
+      redirect_to band_path(band)
+    else
+      flash[:alert] = "Something went wrong when updating your changes"
+      render :edit
+    end
   end
 
   private
