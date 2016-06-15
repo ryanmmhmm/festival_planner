@@ -8,9 +8,7 @@ Rails.application.routes.draw do
     # omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
-  root to: 'skeleton#index'
-
-  resources :skeleton, only: [:index, :new, :create, :show]
+  root to: 'bands#index'
 
   resources :users, only: [:show]
   resources :festivals, only: [:new, :create, :show]
