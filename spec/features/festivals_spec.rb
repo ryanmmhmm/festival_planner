@@ -70,7 +70,7 @@ feature "Festivals", :type => :feature do
       click_button "Delete Festival"
 
       expect(page).to have_current_path(festivals_path)
-      expect(page).to have_text("Your festival has been permanently deleted")
+      expect(page).to have_text("Your festival has been permanently removed")
     end
   end
 
