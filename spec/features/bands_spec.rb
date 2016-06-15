@@ -40,7 +40,9 @@ feature "Bands", :type => :feature do
   end
 
   describe "#edit, #update" do
-
+    it "allows the user to edit and update the information for a band"
+      manager = create_user(role: "manager")
+    end
   end
 
   def create_user(email: "default_email@app.com" , password: "default_password", role:)
