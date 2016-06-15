@@ -1,4 +1,8 @@
 class BandsController < ApplicationController
+  def index
+    @bands = Band.all
+  end
+
   def new
     @band = Band.new
   end
@@ -32,6 +36,18 @@ class BandsController < ApplicationController
     else
       flash[:alert] = "Something went wrong when updating your changes"
       render :edit
+    end
+  end
+
+  def destroy
+    band = Band.find(params[:id])
+
+    if band.destroy
+      flash[:notice] = "Your band has been removed successfully"
+      redirect_to band_index
+    else
+      flash[:alert] = "Your band could not be deleted"
+      render :show
     end
   end
 
