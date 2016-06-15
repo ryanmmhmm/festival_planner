@@ -44,17 +44,18 @@ feature "Festivals", :type => :feature do
 
       visit edit_festival_path(festival)
 
-      fill_in :festival_title,                    with: "changed_festival_title"
-      select start_time.strftime('%Y'),           from: "festival_start_time_1i"
-      select end_time.strftime('%Y') + 1,         from: "festival_end_time_1i"
-      fill_in :festival_location,                 with: "changed_festival_location"
-      fill_in :festival_website_url,              with: "http://changed_website_url.com"
+      fill_in :festival_title,                              with: "changed_festival_title"
+      select festival.start_time.strftime('%Y'),            from: "festival_start_time_1i"
+      select (festival.end_time + 1.year).strftime('%Y'),   from: "festival_end_time_1i"
+      fill_in :festival_location,                           with: "changed_festival_location"
+      fill_in :festival_website_url,                        with: "http://changed_website_url.com"
 
       click_button "Modify Festival"
 
       expect(page).to have_current_path(festival_path(festival))
       expect(page).to have_text("Your festival has been updated")
       expect(page).to have_text("changed_festival_title")
+      expect(page).to have_text("2016" && "2017")
       expect(page).to have_text("changed_festival_location")
       expect(page).to have_text("http://changed_website_url.com")
     end
