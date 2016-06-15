@@ -19,6 +19,14 @@ class BandsController < ApplicationController
     @band = Band.find(params[:id])
   end
 
+  def edit
+
+  end
+
+  def update
+
+  end
+
   private
 
   def band_params
