@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 feature "Festivals", :type => :feature do
-  describe "#new" do
-    it "creates new Festivals" do
-      manager = User.create(email: "user1@app.com", password: "password")
+  describe "restful resources" do
+    it "#new, #update, #show" do
+      manager = create_user(role: "manager")
       start_time = Time.zone.now
       end_time = start_time + 3.days
 
@@ -35,5 +35,53 @@ feature "Festivals", :type => :feature do
       expect(page).to have_text("http://bestival.com")
       # removing tests for start_time and end_time because formatting will change
     end
+
+    it "#edit, #update" do
+      manager = create_user(role: "manager")
+      festival = create_festival
+
+      login_as(manager, scope: :manager)
+
+      visit edit_festival_path(festival)
+
+      fill_in :festival_title,                    with: "changed_festival_title"
+      select start_time.strftime('%Y'),           from: "festival_start_time_1i"
+      select end_time.strftime('%Y') + 1,         from: "festival_end_time_1i"
+      fill_in :festival_location,                 with: "changed_festival_location"
+      fill_in :festival_website_url,              with: "http://changed_website_url.com"
+
+      click_button "Modify Festival"
+
+      expect(page).to have_current_path(festival_path(festival))
+      expect(page).to have_text("Your festival has been updated")
+      expect(page).to have_text("changed_festival_title")
+      expect(page).to have_text("changed_festival_location")
+      expect(page).to have_text("http://changed_website_url.com")
+    end
+  end
+
+  def create_festival(
+    title: "festival_title",
+    location: "festival_location",
+    website_url: "http://festival_website_url.com",
+    start_time: Time.zone.now,
+    end_time: Time.zone.now + 3.days
+    )
+
+    Festival.create!(
+      title: title,
+      location: location,
+      website_url: website_url,
+      start_time: start_time,
+      end_time: end_time
+      )
+
+  end
+
+  def create_user(email: "default_email@app.com" , password: "default_password", role:)
+    User.create!(
+        email: email,
+        password: password,
+        role: role)
   end
 end
