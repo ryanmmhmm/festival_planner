@@ -58,6 +58,20 @@ feature "Festivals", :type => :feature do
       expect(page).to have_text("changed_festival_location")
       expect(page).to have_text("http://changed_website_url.com")
     end
+
+    it "#destroy" do
+      manager = create_user(role: "manager")
+      festival = create_festival
+
+      login_as(manager, scope: :manager)
+
+      visit festival_path(festival)
+
+      click_button "Delete Festival"
+
+      expect(page).to have_current_path(festivals_path)
+      expect(page).to have_text("Your festival has been permanently deleted")
+    end
   end
 
   def create_festival(
