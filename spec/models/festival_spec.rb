@@ -7,6 +7,10 @@ RSpec.describe Festival, :type => :model do
     expect{ create_festival(title: "Two of the same") }.to raise_error(ActiveRecord::RecordInvalid, /Title has already been taken/)
   end
 
+  it "validates that end_time > start_time" do
+    expect{ create_festival(title: "Timewarp", start_time: Time.zone.now + 1.hour, end_time: Time.zone.now) }.to raise_error(ActiveRecord::RecordInvalid, /End time needs to be greater than start time/)
+  end
+
   def create_festival(title: "festival_title", location: "fesival_location", website_url: "http://festival_website.com", start_time: Time.zone.now, end_time: Time.zone.now + 3.days)
     Festival.create!( title: title,
       location: location,
