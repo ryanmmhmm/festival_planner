@@ -4,27 +4,26 @@ feature "Festivals", :type => :feature do
   describe "restful resources" do
     it "#new, #update, #show" do
       manager = create_user(role: "manager")
-      start_time = Time.zone.now
-      end_time = start_time + 3.days
+      festival = create_festival
 
       login_as(manager, scope: :manager)
 
       visit new_festival_path
 
-      fill_in :festival_title,                    with: "Bestival"
-      select start_time.strftime('%Y'),           from: "festival_start_time_1i"
-      select Date::MONTHNAMES[start_time.month],  from: "festival_start_time_2i"
-      select start_time.strftime('%d'),           from: "festival_start_time_3i"
-      select start_time.strftime('%H'),           from: "festival_start_time_4i"
-      select start_time.strftime('%M'),           from: "festival_start_time_5i"
+      fill_in :festival_title,                             with: "Bestival"
+      select festival.start_time.strftime('%Y'),           from: "festival_start_time_1i"
+      select Date::MONTHNAMES[festival.start_time.month],  from: "festival_start_time_2i"
+      select festival.start_time.strftime('%d'),           from: "festival_start_time_3i"
+      select festival.start_time.strftime('%H'),           from: "festival_start_time_4i"
+      select festival.start_time.strftime('%M'),           from: "festival_start_time_5i"
 
-      select end_time.strftime('%Y'),             from: "festival_end_time_1i"
-      select Date::MONTHNAMES[end_time.month],    from: "festival_end_time_2i"
-      select end_time.strftime('%d'),             from: "festival_end_time_3i"
-      select end_time.strftime('%H'),             from: "festival_end_time_4i"
-      select end_time.strftime('%M'),             from: "festival_end_time_5i"
-      fill_in :festival_location,                 with: "Toronto, Ontario"
-      fill_in :festival_website_url,              with: "http://bestival.com"
+      select festival.end_time.strftime('%Y'),             from: "festival_end_time_1i"
+      select Date::MONTHNAMES[festival.end_time.month],    from: "festival_end_time_2i"
+      select festival.end_time.strftime('%d'),             from: "festival_end_time_3i"
+      select festival.end_time.strftime('%H'),             from: "festival_end_time_4i"
+      select festival.end_time.strftime('%M'),             from: "festival_end_time_5i"
+      fill_in :festival_location,                          with: "Toronto, Ontario"
+      fill_in :festival_website_url,                       with: "http://bestival.com"
 
       click_button "Manage your Festival"
 
