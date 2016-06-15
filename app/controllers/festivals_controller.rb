@@ -14,6 +14,7 @@ class FestivalsController < ApplicationController
       flash[:notice] = "Thank you for creating a new festival!"
       redirect_to @festival
     else
+      flash[:alert] = "There was a problem creating your festival"
       render :new
     end
   end
