@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 feature "Bands", :type => :feature do
-  describe "#new" do
+  describe "#new, #create, #show" do
     it "can create a new band" do
-      manager = User.create!(
-        email: "email@app.com",
-        password: "password")
+      manager = create_user(role: "manager")
       start_time = Time.zone.now
       end_time = start_time + 1.hour
 
@@ -39,5 +37,16 @@ feature "Bands", :type => :feature do
       expect(page).to have_text("http://www.band_website.com")
       expect(page).to have_text("http://www.soundcloud.com/band_name")
     end
+  end
+
+  describe "#edit, #update" do
+
+  end
+
+  def create_user(email: "default_email@app.com" , password: "default_password", role:)
+    User.create!(
+        email: email,
+        password: password,
+        role: role)
   end
 end
