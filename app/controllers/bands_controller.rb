@@ -44,7 +44,7 @@ class BandsController < ApplicationController
 
     if band.destroy
       flash[:notice] = "Your band has been removed successfully"
-      redirect_to band_index
+      redirect_to bands_path
     else
       flash[:alert] = "Your band could not be deleted"
       render :show

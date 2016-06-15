@@ -79,7 +79,7 @@ feature "Bands", :type => :feature do
 
       click_button "Delete Band"
 
-      expect(page).to have_current_path(band_index)
+      expect(page).to have_current_path(bands_path)
       expect(page).to have_text("The band has been removed successfully")
     end
   end
