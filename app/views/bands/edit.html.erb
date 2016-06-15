@@ -1,0 +1,21 @@
+<%= form_for(@band, url: { action: "update" }) do |f| %>
+  <%= f.label(:name) %>
+  <%= f.text_area(:name) %>
+
+  <%= f.label(:start_time) %>
+  <%= f.datetime_select(:start_time) %>
+
+  <%= f.label(:end_time) %>
+  <%= f.datetime_select(:end_time) %>
+
+  <%= f.label(:description) %>
+  <%= f.text_area(:description) %>
+
+  <%= f.label(:website_url) %>
+  <%= f.text_area(:website_url) %>
+
+  <%= f.label(:soundcloud_url) %>
+  <%= f.text_area(:soundcloud_url) %>
+
+  <%= f.submit "Save Changes" %>
+<% end %>

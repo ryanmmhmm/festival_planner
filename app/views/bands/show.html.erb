@@ -1,0 +1,11 @@
+<h1>Bands#show</h1>
+<%= button_to "Delete Band", band_path(@band), method: :delete %>
+
+<% if @band %>
+  <%= @band.name %>
+  <%= @band.start_time %>
+  <%= @band.end_time %>
+  <%= @band.description %>
+  <%= @band.website_url %>
+  <%= @band.soundcloud_url %>
+<% end %>
