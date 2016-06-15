@@ -40,8 +40,31 @@ feature "Bands", :type => :feature do
   end
 
   describe "#edit, #update" do
-    it "allows the user to edit and update the information for a band"
+    it "allows the user to edit and update the information for a band" do
       manager = create_user(role: "manager")
+      band = create_band
+
+      login_as(manager, scope: :manager)
+
+      visit edit_band_path(band)
+
+      fill_in :band_name,           with: "Changed_Band_Name"
+      select (band.end_time + 1.year).strftime('%Y'),      from: "band_end_time_1i"
+
+      fill_in :band_description,    with: "Changed_Band_Description"
+      fill_in :band_website_url,    with: "http://www.changed_band_website.com"
+      fill_in :band_soundcloud_url, with: "http://www.soundcloud.com/changed_band_account"
+
+      click_button "Save Changes"
+
+      expect(page).to have_current_path(band_path(band))
+      expect(page).to have_text("Your changes have been saved")
+      expect(page).to have_text("Changed_Band_Name")
+      expect(page).to have_text("2016")
+      expect(page).to have_text("2017")
+      expect(page).to have_text("Changed_Band_Description")
+      expect(page).to have_text("http://www.changed_band_website.com")
+      expect(page).to have_text("http://www.soundcloud.com/changed_band_account")
     end
   end
 
@@ -50,5 +73,22 @@ feature "Bands", :type => :feature do
         email: email,
         password: password,
         role: role)
+  end
+
+  def create_band(name: "band_name",
+    description: "band_description",
+    website_url: "http://band_website.com",
+    soundcloud_url: "http://soundcloud.com/band_account",
+    start_time: Time.zone.now,
+    end_time: Time.zone.now + 1.hour
+    )
+
+    Band.create!(name: name,
+      description: description,
+      website_url: website_url,
+      soundcloud_url: soundcloud_url,
+      start_time: start_time,
+      end_time: end_time
+      )
   end
 end
