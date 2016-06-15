@@ -14,5 +14,5 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   resources :festivals, only: [:new, :create, :show]
-  resources :bands, only: [:new, :create, :show]
+  resources :bands, only: [:new, :create, :show, :edit, :update]
 end
