@@ -26,8 +26,6 @@ class BandsController < ApplicationController
   def show
     @festival = Festival.find(params[:festival_id])
     @band = Band.find(params[:id])
-    puts "Band ID: #{@band.id}"
-    puts "Festival ID: #{@band.festival_id}"
   end
 
   def edit
