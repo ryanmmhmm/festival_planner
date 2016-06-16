@@ -1,4 +1,5 @@
 class Band < ApplicationRecord
+  belongs_to :festival
 
   validate :end_time_after_start_time
 

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
   root to: 'bands#index'
 
-  resources :users, only: [:show]
-  resources :festivals
-  resources :bands
+  resources :users, only: [:show, :edit, :update, :destroy]
+
+  resources :festivals do
+    resources :bands
+  end
 end

@@ -4,12 +4,13 @@ feature "Bands", :type => :feature do
   describe "#new, #create, #show" do
     it "can create a new band" do
       manager = create_user(role: "manager")
+      festival = create_festival
       start_time = Time.zone.now
       end_time = start_time + 1.hour
 
       login_as(manager, scope: :manager)
 
-      visit new_band_path
+      visit new_festival_band_path(festival)
 
       fill_in :band_name, with: "Band_Name"
       select start_time.strftime('%Y'),           from: "band_start_time_1i"
@@ -30,7 +31,8 @@ feature "Bands", :type => :feature do
 
       click_button "Add Band"
 
-      expect(page).to have_current_path(band_path(Band.last))
+      band = Band.last
+      expect(page).to have_current_path(festival_band_path(festival_id: band.festival_id, id: band.id))
       expect(page).to have_text("You have added a Band to your festival")
       expect(page).to have_text("Band_Name")
       expect(page).to have_text("Band_Description")
@@ -42,11 +44,12 @@ feature "Bands", :type => :feature do
   describe "#edit, #update" do
     it "allows the user to edit and update the information for a band" do
       manager = create_user(role: "manager")
-      band = create_band
+      festival = create_festival
+      band = create_band(festival)
 
       login_as(manager, scope: :manager)
 
-      visit edit_band_path(band)
+      visit edit_festival_band_path(festival_id: band.festival_id, id: band.id)
 
       fill_in :band_name,           with: "Changed_Band_Name"
       select (band.end_time + 1.year).strftime('%Y'),      from: "band_end_time_1i"
@@ -57,7 +60,7 @@ feature "Bands", :type => :feature do
 
       click_button "Save Changes"
 
-      expect(page).to have_current_path(band_path(band))
+      expect(page).to have_current_path(festival_band_path(festival_id: band.festival_id, id: band.id))
       expect(page).to have_text("Your changes have been saved")
       expect(page).to have_text("Changed_Band_Name")
       expect(page).to have_text("2016")
@@ -71,15 +74,16 @@ feature "Bands", :type => :feature do
   describe "#destroy" do
     it "allows the user to remove the band" do
       manager = create_user(role: "manager")
-      band = create_band
+      festival = create_festival
+      band = create_band(festival)
 
       login_as(manager, scope: :manager)
 
-      visit band_path(band)
+      visit festival_band_path(festival_id: band.festival_id, id: band.id)
 
       click_button "Delete Band"
 
-      expect(page).to have_current_path(bands_path)
+      expect(page).to have_current_path(festival_bands_path(festival))
       expect(page).to have_text("Your band has been removed successfully")
     end
   end
@@ -88,10 +92,12 @@ feature "Bands", :type => :feature do
     User.create!(
         email: email,
         password: password,
-        role: role)
+        role: role
+      )
   end
 
-  def create_band(name: "band_name",
+  def create_band(festival,
+    name: "band_name",
     description: "band_description",
     website_url: "http://band_website.com",
     soundcloud_url: "http://soundcloud.com/band_account",
@@ -99,10 +105,28 @@ feature "Bands", :type => :feature do
     end_time: Time.zone.now + 1.hour
     )
 
-    Band.create!(name: name,
+    festival.bands.create!(
+      name: name,
       description: description,
       website_url: website_url,
       soundcloud_url: soundcloud_url,
+      start_time: start_time,
+      end_time: end_time
+      )
+  end
+
+  def create_festival(
+    title: "festival_title",
+    location: "festival_location",
+    website_url: "http://festival_website.com",
+    start_time: Time.zone.now,
+    end_time: Time.zone.now + 3.days
+    )
+
+    Festival.create!(
+      title: title,
+      location: location,
+      website_url: website_url,
       start_time: start_time,
       end_time: end_time
       )
