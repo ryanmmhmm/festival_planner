@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   root to: 'bands#index'
 
   resources :users, only: [:show]
-  resources :festivals, only: [:new, :create, :show]
+  resources :festivals
   resources :bands
 end
