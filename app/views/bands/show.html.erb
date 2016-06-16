@@ -1,5 +1,5 @@
 <h1>Bands#show</h1>
-<%= button_to "Delete Band", band_path(@band), method: :delete %>
+<%= button_to "Delete Band", festival_band_path(@festival, @band), method: :delete %>
 
 <% if @band %>
   <%= @band.name %>
