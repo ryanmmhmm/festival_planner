@@ -1,4 +1,6 @@
 class Festival < ApplicationRecord
+  has_many :bands
+
   validates :title, uniqueness: true
 
   validate :end_time_after_start_time
