@@ -5,6 +5,22 @@ RSpec.describe Band, :type => :model do
     it "validates that end_time > start_time" do
       expect{ create_band!(name: "Timewarp", start_time: Time.zone.now + 1.hour, end_time: Time.zone.now) }.to raise_error(ActiveRecord::RecordInvalid, /End time needs to be greater than start time/)
     end
+
+    it "validates that end_time is present" do
+      band = create_band(end_time: nil)
+
+      validation = band.valid?
+
+      expect(validation).to be false
+    end
+
+    it "validates that start_time is present" do
+      band = create_band(start_time: nil)
+
+      validation = band.valid?
+
+      expect(validation).to be false
+    end
   end
 
   def create_band!(name: "band_name",
